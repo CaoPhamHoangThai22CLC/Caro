@@ -3,7 +3,8 @@
 
 #include <vector>
 
-const int SIZE = 8;
+const int SIZE_H = 8;
+const int SIZE_W = 13;
 const char EMPTY = ' ';
 const char PLAYER_X = 'X';
 const char PLAYER_O = 'O';
@@ -16,15 +17,15 @@ bool loadGame(std::vector<std::vector<char>>& board, char& currentPlayer, bool& 
 void updateElapsedTime(int timeElapsed); // New function declaration
 void drawXDecoration();
 void drawODecoration();
-void drawZero();
-void drawSeven();
-void drawNine();
-void drawEight();
-void drawSix();
-void drawFive();
-void drawFour();
-void drawThree();
-void drawTwo();
-void drawOne();
+void drawZero(int startX, int startY);
+void drawSeven(int startX, int startY);
+void drawNine(int startX, int startY);
+void drawEight(int startX, int startY);
+void drawSix(int startX, int startY);
+void drawFive(int startX, int startY);
+void drawFour(int startX, int startY);
+void drawThree(int startX, int startY);
+void drawTwo(int startX, int startY);
+void drawOne(int startX, int startY);
 
 #endif // BOARD_H

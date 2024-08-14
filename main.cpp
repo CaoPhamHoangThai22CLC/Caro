@@ -119,7 +119,7 @@ int main() {
         }
 
         bool againstComputer = false;
-        vector<vector<char>> board(SIZE, vector<char>(SIZE, EMPTY));
+        vector<vector<char>> board(SIZE_H, vector<char>(SIZE_W, EMPTY));
         char currentPlayer = PLAYER_X;
 
         if (selectedOption == 1) {
