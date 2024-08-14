@@ -57,6 +57,47 @@ bool playAgain() {
     return (toupper(choice) == 'Y');
 }
 
+void drawCT() {
+    int startX = 1;
+    int startY = 5;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(32) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) <<
+        char(32) << char(219) << char(219) << char(32) << char(32) << char(32) << char(219) << char(219) << char(32) << char(32) <<
+        char(219) << char(219)  << char(219)  << char(219)  << char(219)  << char(219) << char(32) << char(32) << char(32) << char(219) 
+        << char(219) << char(219) << char(219) << char(219) << char(219) << char(32) << char(32)  << char(219) << char(219) << char(219) 
+        << char(219) << char(219) << char(219) << char(219) << char(32) << char(219) << char(219) << char(219) << char(219) << char(219) 
+        << char(219) << char(219);
+    moveCursor(startX + 2, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219) << char(32)
+        << char(32) << char(32) << char(219) << char(219) << char(32) << char(219) << char(219) << char(32) << char(32) << char(32) << char(32)
+        << char(219) << char(219) << char(32) << char(219) << char(219) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219)
+        << char(32) << char(219) << char(219) << char(32) << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219) << char(32)
+        << char(32) << char(32) << char(32) << char(32);
+    moveCursor(startX + 3, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(32) << char(32) << char(32) <<
+        char(32) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << char(32) << char(219) <<
+        char(219) << char(32)  << char(32)  << char(32) << char(32) << char(219)  << char(219) << char(32) << char(219) << char(219) << char(32) 
+        << char(32) << char(32) << char(32) << char(219)<< char(219) << char(32) << char(219)  << char(219) << char(219) << char(219) 
+        << char(219) << char(219) << char(219) << char(32) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) 
+        << char(32) << char(32);
+    moveCursor(startX + 4, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219) << char(32)
+        << char(32) << char(32) << char(219) << char(219) << char(32) << char(219) << char(219) << char(32) << char(32) << char(32) << char(32)
+        << char(219) << char(219) << char(32) << char(219) << char(219) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219)
+        << char(32) << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219) << char(32) << char(219) << char(219) << char(32)
+        << char(32) << char(32) << char(32) << char(32);
+    moveCursor(startX + 5, startY);
+    cout << char(32) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) <<
+        char(32) << char(219) << char(219) << char(32) << char(32) << char(32) << char(219) << char(219) << char(32) << char(32) <<
+        char(219) << char(219)  << char(219)  << char(219)  << char(219)  << char(219) << char(32) << char(32) << char(32) << char(219) 
+        << char(219) << char(219) << char(219) << char(219) << char(219) << char(32) << char(32)  << char(219) << char(219) << char(219) 
+        << char(219) << char(219) << char(219) << char(219) << char(32) << char(219) << char(219) << char(219) << char(219) << char(219) 
+        << char(219) << char(219);
+    setColor(1, 15);
+}
+
 bool chooseGameMode() {
     int selectedOption = 1;
     bool optionSelected = false;
@@ -64,6 +105,10 @@ bool chooseGameMode() {
     while (!optionSelected) {
         clearScreen();
         cout << "Choose Game Mode:" << endl;
+
+        // DRAW "CHOOSE"
+        drawCT();
+        
         cout << (selectedOption == 1 ? "> " : "  ") << "1. PVP" << endl;
         cout << (selectedOption == 2 ? "> " : "  ") << "2. PVE" << endl;
         int key = _getch();
@@ -144,7 +189,6 @@ int main() {
         while (!gameEnded) {
             {
                 lock_guard<mutex> lock(mtx);
-                //printBoard(board, currentPlayer, timeElapsed);
             }
 
             if (currentPlayer == PLAYER_X || !againstComputer) {

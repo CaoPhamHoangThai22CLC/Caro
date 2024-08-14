@@ -32,11 +32,11 @@ void printBoard(const vector<vector<char>>& board, char currentPlayer, int timeE
             int x = startY + j * cellWidth;
 
             if (board[i][j] == PLAYER_X) {
-                setColor(4, 15); // Đỏ cho PLAYER_X
+                setColor(4, 15);
             } else if (board[i][j] == PLAYER_O) {
-                setColor(9, 15); // Xanh dương cho PLAYER_O
+                setColor(9, 15);
             } else {
-                setColor(1, 15); // Màu mặc định
+                setColor(1, 15);
             }
             printCell(x, y, board[i][j]);
         }
