@@ -24,18 +24,18 @@ void playerMove(vector<vector<char>>& board, char player, bool& againstComputer,
             cout << previousChar; // Restore the previous character
 
             switch (key) {
-            case 72: // Up arrow
-                x = (x > 1) ? x - 1 : SIZE - 1;
-                break;
-            case 80: // Down arrow
-                x = (x < SIZE - 1) ? x + 1 : 0;
-                break;
-            case 75: // Left arrow
-                y = (y > 1) ? y - 1 : SIZE - 1;
-                break;
-            case 77: // Right arrow
-                y = (y < SIZE - 1) ? y + 1 : 0;
-                break;
+                case 72: // Up arrow
+                    x = (x > 0) ? x - 1 : SIZE - 1;
+                    break;
+                case 80: // Down arrow
+                    x = (x < SIZE - 1) ? x + 1 : 0;
+                    break;
+                case 75: // Left arrow
+                    y = (y > 0) ? y - 1 : SIZE - 1;
+                    break;
+                case 77: // Right arrow
+                    y = (y < SIZE - 1) ? y + 1 : 0;
+                    break;
             }
             previousChar = board[x][y];
         } else if (key == 32) { // Space bar
@@ -60,6 +60,7 @@ void playerMove(vector<vector<char>>& board, char player, bool& againstComputer,
         }
     }
 }
+
 
 
 void computerMove(vector<vector<char>>& board, char player) {
