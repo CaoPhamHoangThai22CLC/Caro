@@ -7,9 +7,9 @@
 using namespace std;
 
 void printCell(int x, int y, char value) {
-    setColor(1, 15); // Text color blue (1), background white (15)
+    setColor(1, 15);
 
-    moveCursor(y, x); // Swap x and y when calling moveCursor
+    moveCursor(y, x);
     cout << char(218) << char(196) << char(196) << char(196) << char(191);
 
     moveCursor(y + 1, x);
@@ -17,47 +17,44 @@ void printCell(int x, int y, char value) {
 
     moveCursor(y + 2, x);
     cout << char(192) << char(196) << char(196) << char(196) << char(217);
-
-    //setColor(0, 15); // Reset to default: text black, background white
 }
 
 void printBoard(const vector<vector<char>>& board, char currentPlayer, int timeElapsed) {
     hideCursor();
-    clearScreen(); // Clear the screen before printing the board
+    clearScreen();
 
-    int startX = 2, startY = 4; // Starting point for the grid
-    int cellWidth = 5, cellHeight = 3; // Size of each cell
-
-    /*for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            int y = startX + i * cellHeight;
-            int x = startY + j * cellWidth;
-            printCell(x, y, ' ');
-        }
-    }*/
+    int startX = 2, startY = 4; // Điểm bắt đầu cho lưới
+    int cellWidth = 5, cellHeight = 3; // Kích thước của mỗi ô
 
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            moveCursor(i, j * 2);
             int y = startX + i * cellHeight;
             int x = startY + j * cellWidth;
+
             if (board[i][j] == PLAYER_X) {
-                setColor(4, 15); // Red for PLAYER_X
-            }
-            else if (board[i][j] == PLAYER_O) {
-                setColor(9, 15); // Blue for PLAYER_O
+                setColor(4, 15); // Đỏ cho PLAYER_X
+            } else if (board[i][j] == PLAYER_O) {
+                setColor(9, 15); // Xanh dương cho PLAYER_O
+            } else {
+                setColor(1, 15); // Màu mặc định
             }
             printCell(x, y, board[i][j]);
         }
     }
+
     moveCursor(2, SIZE * 2 + 30);
     cout << "Current player: " << currentPlayer;
+
+    // Vẽ hình trang trí X và O
+    drawXDecoration();
+    drawODecoration();
+
     showCursor();
 }
 
 void updateElapsedTime(int timeElapsed) {
     hideCursor();
-    moveCursor(3, SIZE * 2 + 30); // Move to the position where the time elapsed is displayed
+    moveCursor(3, SIZE * 2 + 30);
     cout << "Time elapsed: " << timeElapsed << " seconds";
     showCursor();
 }
@@ -151,4 +148,220 @@ bool loadGame(vector<vector<char>>& board, char& currentPlayer, bool& againstCom
     inFile.close();
     cout << "Game loaded successfully!" << endl;
     return true;
+}
+
+void drawXDecoration() {
+    int startX = 5;
+    int startY = SIZE * 2 + 35;
+
+    setColor(4, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(219) << char(219) << char(187) << char(32) << char(32) << char(219) << char(219) << char(187);
+    moveCursor(startX + 2, startY);
+    cout << char(200) << char(219) << char(219) << char(187) << char(219) << char(219) << char(201) << char(188);
+    moveCursor(startX + 3, startY);
+    cout << char(32) << char(200) << char(219) << char(219) << char(219) << char(201) << char(188) << char(32);
+    moveCursor(startX + 4, startY);
+    cout << char(32) << char(219) << char(219) << char(201) << char(219) << char(219) << char(187) << char(32);
+    moveCursor(startX + 5, startY);
+    cout << char(219) << char(219) << char(201) << char(188) << char(32) << char(219) << char(219) << char(187);
+    setColor(1, 15);
+}
+
+void drawODecoration() {
+    int startX = 5;
+    int startY = SIZE * 2 + 50;
+
+    setColor(9, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(32) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << char(187);
+    moveCursor(startX + 2, startY);
+    cout << char(219) << char(219) << char(201) << char(205) << char(205) << char(205) << char(219) << char(219) << char(187);
+    moveCursor(startX + 3, startY);
+    cout << char(219) << char(219) << char(186) << char(32) << char(32) << char(32) << char(219) << char(219) << char(186);
+    moveCursor(startX + 4, startY);
+    cout << char(219) << char(219) << char(186) << char(32) << char(32) << char(32) << char(219) << char(219) << char(186);
+    moveCursor(startX + 5, startY);
+    cout << char(200) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << char(201) << char(188);
+    setColor(1, 15);
+}
+
+void drawZero() {
+    int startX = 10;
+    int startY = SIZE * 2 + 35;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(32) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << char(32);
+    moveCursor(startX + 2, startY);
+    cout << char(219) << char(32) << char(32) << char(219) << char(219) << char(219) << char(219) << char(219);
+    moveCursor(startX + 3, startY);
+    cout << char(219) << char(32) << char(219) << char(219) << char(219) << char(219) << char(32) << char(219);
+    moveCursor(startX + 4, startY);
+    cout << char(219) << char(219) << char(219) << char(219) << char(32) << char(219) << char(219) << char(219);
+    moveCursor(startX + 5, startY);
+    cout << char(32) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << char(32);
+    setColor(1, 15);
+}
+
+void drawSeven() {
+    int startX = 10;
+    int startY = SIZE * 2 + 35;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219);
+    moveCursor(startX + 2, startY);
+    cout << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 3, startY);
+    cout << char(32) << char(32) << char(32) << char(32) << char(219) << char(219) << char(32);
+    moveCursor(startX + 4, startY);
+    cout << char(32) << char(32) << char(32) << char(219) << char(219) << char(32) << char(32);
+    moveCursor(startX + 5, startY);
+    cout << char(32) << char(32) << char(219) << char(219) << char(32) << char(32) << char(32);
+    setColor(1, 15);
+}
+
+void drawNine() {
+    int startX = 10;
+    int startY = SIZE * 2 + 35;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(32) << char(219) << char(219) << char(219) << char(219) << char(219) << char(32);
+    moveCursor(startX + 2, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 3, startY);
+    cout << char(32) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219);
+    moveCursor(startX + 4, startY);
+    cout << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 5, startY);
+    cout << char(32) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    setColor(1, 15);
+}
+
+void drawEight() {
+    int startX = 10;
+    int startY = SIZE * 2 + 35;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(32) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    moveCursor(startX + 2, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 3, startY);
+    cout << char(32) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32); 
+    moveCursor(startX + 4, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 5, startY);
+    cout << char(32) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    setColor(1, 15);
+}
+
+void drawSix() {
+    int startX = 10;
+    int startY = SIZE * 2 + 35;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(32) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    moveCursor(startX + 2, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(32) << char(32);
+    moveCursor(startX + 3, startY);
+    cout << char(219) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    moveCursor(startX + 4, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 5, startY);
+    cout << char(32) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    setColor(1, 15);
+}
+
+void drawFive() {
+    int startX = 10;
+    int startY = SIZE * 2 + 35;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(219) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(219);
+    moveCursor(startX + 2, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(32) << char(32);
+    moveCursor(startX + 3, startY);
+    cout << char(219) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(219);
+    moveCursor(startX + 4, startY);
+    cout << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 5, startY);
+    cout << char(219) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(219);
+    setColor(1, 15);
+}
+
+void drawFour() {
+    int startX = 10;
+    int startY = SIZE * 2 + 35;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 2, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 3, startY);
+    cout << char(219) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(219);
+    moveCursor(startX + 4, startY);
+    cout << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 5, startY);
+    cout << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219);
+    setColor(1, 15);
+}
+
+void drawThree() {
+    int startX = 10;
+    int startY = SIZE * 2 + 35;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(219) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    moveCursor(startX + 2, startY);
+    cout << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 3, startY);
+    cout << char(32) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    moveCursor(startX + 4, startY);
+    cout << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 5, startY);
+    cout << char(219) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    setColor(1, 15);
+}
+
+void drawTwo() {
+    int startX = 10;
+    int startY = SIZE * 2 + 35;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(219) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    moveCursor(startX + 2, startY);
+    cout << char(32) << char(32) << char(32) << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 3, startY);
+    cout << char(32) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(32);
+    moveCursor(startX + 4, startY);
+    cout << char(219) << char(219) << char(32) << char(32) << char(32) << char(32) << char(32);
+    moveCursor(startX + 5, startY);
+    cout << char(219) << char(219) << char(219)  << char(219)  << char(219) << char(219) << char(219);
+    setColor(1, 15);
+}
+
+void drawOne() {
+    int startX = 10;
+    int startY = SIZE * 2 + 35;
+
+    setColor(14, 15);
+    moveCursor(startX + 1, startY);
+    cout << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 2, startY);
+    cout << char(219) << char(219) << char(219) << char(219);
+    moveCursor(startX + 3, startY);
+    cout << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 4, startY);
+    cout << char(32) << char(32) << char(219) << char(219);
+    moveCursor(startX + 5, startY);
+    cout << char(32) << char(32) << char(219) << char(219);
+    setColor(1, 15);
 }

@@ -14,5 +14,17 @@ bool checkWin(const std::vector<std::vector<char>>& board, char player);
 void saveGame(const std::vector<std::vector<char>>& board, char currentPlayer, bool againstComputer);
 bool loadGame(std::vector<std::vector<char>>& board, char& currentPlayer, bool& againstComputer);
 void updateElapsedTime(int timeElapsed); // New function declaration
+void drawXDecoration();
+void drawODecoration();
+void drawZero();
+void drawSeven();
+void drawNine();
+void drawEight();
+void drawSix();
+void drawFive();
+void drawFour();
+void drawThree();
+void drawTwo();
+void drawOne();
 
 #endif // BOARD_H

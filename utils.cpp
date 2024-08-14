@@ -1,5 +1,7 @@
 ﻿#include <cstdlib>
 #include <windows.h>
+#include <iostream>
+using namespace std;
 
 void clearScreen() {
     system("cls");
