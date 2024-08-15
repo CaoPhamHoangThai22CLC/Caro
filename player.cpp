@@ -5,6 +5,7 @@
 #include "player.h"
 #include "board.h"
 #include "utils.h"
+#include "music.h"
 
 
 using namespace std;
@@ -47,6 +48,8 @@ void playerMove(vector<vector<char>>& board, char player, bool& againstComputer,
                 setColor((player == PLAYER_X) ? 12 : 9, 15);
                 cout << player;
                 setColor(1, 15);
+                playSoundEffect(L"ping.wav");
+                //stopMusic();
                 break;
             } else {
                 moveCursor(23, SIZE_W * 2 + 43);
