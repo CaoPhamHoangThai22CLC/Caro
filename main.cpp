@@ -115,10 +115,6 @@ void drawWinning(char winner) {
     setColor(15, 0); // Reset to default: text white, background black
 }
 
-
-
-
-
 void timerThreadFunction(atomic<bool>& stopTimer, int& timeElapsed, mutex& mtx) {
     while (!stopTimer) {
         this_thread::sleep_for(chrono::seconds(1));
@@ -386,12 +382,23 @@ void displaySetting() {
 
 }
 
+bool isBoardFull(const vector<vector<char>>& board) {
+    for (int i = 0; i < SIZE_H; i++) {
+        for (int j = 0; j < SIZE_W; j++) {
+            if (board[i][j] == EMPTY) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
 int main() {
-    srand(time(0)); // Seed the random number generator for the AI
+    srand(time(0));
     bool replay = true;
     hideCursor();
     
-
     while (replay) {
         hideCursor();
         setColor(0, 15);
@@ -473,7 +480,18 @@ int main() {
                 }
                 cout << "Player " << currentPlayer << " wins!" << endl;
                 gameEnded = true;
-            } else {
+            } 
+            else if (isBoardFull(board)) {
+                stopTimer = true;
+                timerThread.join();
+                clearScreen();
+                {
+                    lock_guard<mutex> lock(mtx);
+                    printBoard(board, currentPlayer, timeElapsed);
+                }
+                gameEnded = true;
+            } 
+            else {
                 currentPlayer = (currentPlayer == PLAYER_X) ? PLAYER_O : PLAYER_X;
             }
         }
